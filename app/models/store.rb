@@ -8,7 +8,10 @@ class Store < ApplicationRecord
 private
 	def format_fields
 		self.name = self.name.downcase.titleize
-		pn = Phoner::Phone.parse self.phone, :country_code => '1'
-		self.phone = pn.format(:us)
+
+		phone = Phoner::Phone.parse self.phone, :country_code => '1'
+		self.phone = phone.format(:us)
+
+		self.address = StreetAddress::US.parse(self.address)
 	end
 end

@@ -13,7 +13,7 @@ describe Store, 'validations' do
 end
 
 describe Store, 'callbacks' do
-  sampleStore = Store.create(:name => 'neW SeaSoNS MARket', :address => '8932 Easy Street', :phone => '984-223777 7', :hours => '8-7 All Week')
+  sampleStore = Store.create(:name => 'neW SeaSoNS MARket', :address => '8932 pine ave portland or 97201', :phone => '984-223777 7', :hours => '8-7 All Week')
 
   it { is_expected.to callback(:format_fields).before(:save) }
 
@@ -23,5 +23,9 @@ describe Store, 'callbacks' do
 
   it 'will format phone number' do
     expect(sampleStore.phone).to(eq('(984) 223-7777'))
+  end
+
+  it 'will format address' do
+    expect(sampleStore.address).to(eq('8932 Pine Ave, Portland, OR 97201'))
   end
 end
