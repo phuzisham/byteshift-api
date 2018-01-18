@@ -16,6 +16,6 @@ p "#{Store.count} store(s) created"
 cat = Category.create!(name: "Meats", lx: 0, rx: 4, ty: 5, by: 0, store_id: store.id)
 p "#{Category.count} categories(s) created"
 
-item = store.items.create!(name: "apples", x: 2, y: 4, category_id: cat.id, store_id: store.id)
+item = store.items.create!(name: "apples", x: 2, y: 4, category_id: cat.id, store_id: store.id) # cat.store_id should also work
 
 p "#{Item.count} items(s) created"
