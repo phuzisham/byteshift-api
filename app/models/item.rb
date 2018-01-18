@@ -1,3 +1,4 @@
 class Item < ApplicationRecord
-	has_many :categories_items_stores
+	belongs_to :category
+	belongs_to :store
 end

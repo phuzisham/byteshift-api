@@ -11,6 +11,6 @@ Category.destroy_all
 
 		
 store = Store.create!(address: "address", phone: "503", name: "Freddies", hours: "10")
-cat = Category.create!(name: "Meats", lx: 0, rx: 4, ty: 5, by: 0)
+cat = Category.create!(name: "Meats", lx: 0, rx: 4, ty: 5, by: 0, store_id: store.id)
 
-item = store.items.create!(name: "apples", x: 2, y: 4)
+item = store.items.create!(name: "apples", x: 2, y: 4, category_id: cat.id, store_id: store.id)
