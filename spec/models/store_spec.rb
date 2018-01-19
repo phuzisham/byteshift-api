@@ -10,6 +10,12 @@ describe Store, 'validations' do
   it { should validate_presence_of :address }
   it { should validate_presence_of :phone }
   it { should validate_presence_of :hours }
+
+  it 'will show custom error for phone number valdation' do
+    sampleStore = Store.create(:name => 'neW SeaSoNS MARket', :address => '8932 pine ave portland or 97201', :phone => '9847777', :hours => '8-7 All Week')
+
+    expect(response).to render('Phone number must be 10 digits with no special characters.')
+  end
 end
 
 describe Store, 'callbacks' do

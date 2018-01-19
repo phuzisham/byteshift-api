@@ -10,18 +10,29 @@ Item.destroy_all
 Category.destroy_all
 
 20.times do
-  Store.create!(name: Faker::Space.unique.star,
-                address: Faker::Number.between(18, 80),
-	              phone: Faker::PhoneNumber.phone_number,
-	              hours: Faker::ElderScrolls.region,)
+  Store.create!(name: Faker::StarWars.unique.planet,
+                address: Faker::Address.street_address,
+	              phone: Faker::Number.number(10),
+	              hours: Faker::Number.between(8, 80))
 end
+p "#{Store.count} stores created"
 
-store = Store.create!(address: "address", phone: "503", name: "Freddies", hours: "10")
-p "#{Store.count} store(s) created"
+20.times do
+  Category.create!(name: Faker::BossaNova.unique.song,
+                	 lx: Faker::Number.between(8, 80),
+	              	 rx: Faker::Number.between(8, 80),
+	              	 ty: Faker::Number.between(8, 80),
+								 	 by: Faker::Number.between(8, 80),
+								 	 store_id: Store.find(rand(Store.first.id..Store.last.id)).id)
+end
+p "#{Category.count} categories created"
 
-cat = Category.create!(name: "Meats", lx: 0, rx: 4, ty: 5, by: 0, store_id: store.id)
-p "#{Category.count} categories(s) created"
-
-item = store.items.create!(name: "apples", x: 2, y: 4, category_id: cat.id, store_id: store.id) # cat.store_id should also work
-
-p "#{Item.count} items(s) created"
+20.times do
+	category = Category.find(rand(Category.first.id..Category.last.id))
+  Item.create!(name: Faker::BossaNova.unique.song,
+                	 x: Faker::Number.between(8, 80),
+	              	 y: Faker::Number.between(8, 80),
+								 	 category_id: category.id,
+								 	 store_id: category.store_id)
+end
+p "#{Item.count} items created"

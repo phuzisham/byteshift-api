@@ -26,6 +26,7 @@ gem 'puma', '~> 3.7'
 # gem 'rack-cors'
 gem 'phone', '~> 1.2.3'
 gem 'StreetAddress', :require => 'street_address'
+gem 'faker', '~> 1.8.7'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
