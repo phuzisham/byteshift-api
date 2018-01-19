@@ -11,8 +11,13 @@ class API::StoresController < ApplicationController
 		json_response(@store)
 	end
 
-	private
-  def json_response(object, status = :ok)
-    render json: object, status: status
-  end
+	def create
+		@store = Store.create(store_params)
+		json_response(@store)
+	end
+
+	private	
+	def store_params
+		params.permit(:name, :address, :phone, :hours)
+	end
 end
