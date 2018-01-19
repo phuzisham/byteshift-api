@@ -9,7 +9,13 @@ Store.destroy_all
 Item.destroy_all
 Category.destroy_all
 
-		
+20.times do
+  Store.create!(name: Faker::Space.unique.star,
+                address: Faker::Number.between(18, 80),
+	              phone: Faker::PhoneNumber.phone_number,
+	              hours: Faker::ElderScrolls.region,)
+end
+
 store = Store.create!(address: "address", phone: "503", name: "Freddies", hours: "10")
 p "#{Store.count} store(s) created"
 
