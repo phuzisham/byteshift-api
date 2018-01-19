@@ -13,7 +13,7 @@ describe Store, 'validations' do
 end
 
 describe Store, 'callbacks' do
-  sampleStore = Store.create(:name => 'neW SeaSoNS MARket', :address => '8932 pine ave portland or 97201', :phone => '984-223777 7', :hours => '8-7 All Week')
+  sampleStore = Store.create(:name => 'neW SeaSoNS MARket', :address => '8932 pine ave portland or 97201', :phone => '9842237777', :hours => '8-7 All Week')
 
   it { is_expected.to callback(:format_fields).before(:save) }
 
