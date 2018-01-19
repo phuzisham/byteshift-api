@@ -12,8 +12,12 @@ class API::StoresController < ApplicationController
 	end
 
 	def create
-		@store = Store.create(store_params)
-		json_response(@store)
+		@store = Store.new(store_params)
+		if @store.save
+			json_response(@store)
+		else
+			json_response(@store.errors, status = :not_acceptable)
+		end
 	end
 
 	def update
