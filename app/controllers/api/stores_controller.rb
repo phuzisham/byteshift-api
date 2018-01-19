@@ -26,6 +26,16 @@ class API::StoresController < ApplicationController
 		end
   end
 
+	def destroy
+		@store = Store.find(params[:id])
+		if @store.destroy
+			# Send a 200 response
+			head :ok
+		else
+			# On the off chance it fails?
+		end
+	end
+
 	private
 	def store_params
 		params.permit(:name, :address, :phone, :hours)
