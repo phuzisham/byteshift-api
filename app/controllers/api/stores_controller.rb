@@ -1,12 +1,18 @@
 class API::StoresController < ApplicationController
+	include Response
+
 	def index
 		@stores = Store.all
-		render :json => @stores
+		json_response(@stores)
   end
 
 	def show
 		@store = Store.find(params[:id])
-		render :json => @store
+		json_response(@store)
 	end
 
+	private
+  def json_response(object, status = :ok)
+    render json: object, status: status
+  end
 end
