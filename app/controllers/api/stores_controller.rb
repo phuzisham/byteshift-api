@@ -16,7 +16,17 @@ class API::StoresController < ApplicationController
 		json_response(@store)
 	end
 
-	private	
+	def update
+    @store = Store.find(params[:id])
+    if @store.update(store_params)
+			# Send a 200 response in lieu of the default 204 response to let the server know everything is solid
+			head :ok
+		else
+			# Perhaps specify an error code that we can return in the case a store fails to update?
+		end
+  end
+
+	private
 	def store_params
 		params.permit(:name, :address, :phone, :hours)
 	end
