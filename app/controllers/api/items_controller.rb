@@ -17,8 +17,19 @@ class API::ItemsController < ApplicationController
 			json_response(@item.errors, status = :not_acceptable)
 		end
   end
-end
 
-def item_params
-  params.permit(:name, :x, :y, :store_id, :category_id)
+  def show
+    @item = Item.find(params[:id])
+    if @item
+			json_response(@item)
+		else
+			json_response(@item.errors, status = :not_found)
+		end
+  end
+
+
+  private
+  def item_params
+    params.permit(:name, :x, :y, :store_id, :category_id)
+  end
 end
