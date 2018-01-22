@@ -26,6 +26,13 @@ class API::ItemsController < ApplicationController
     @item.update(item_params) ? (head :ok) : (head :expectation_failed)
   end
 
+  def destroy
+    @item = Item.find(params[:id])
+    # Send a 200 response in lieu of the default 204 response to let the server know everything is solid
+    # Perhaps specify an error code that we can return in the case a store fails to update?
+    @item.destroy ? (head :ok) : (head :expectation_failed)
+  end
+
   private
   def item_params
     params.permit(:name, :x, :y, :store_id, :category_id)
