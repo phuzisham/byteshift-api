@@ -8,4 +8,17 @@ class API::ItemsController < ApplicationController
     @products = category ? category.items : Store.find(params[:store_id]).items
     json_response(@products)
   end
+
+  def create
+    @item = Item.new(item_params)
+		if @item.save
+			json_response(@item)
+		else
+			json_response(@item.errors, status = :not_acceptable)
+		end
+  end
+end
+
+def item_params
+  params.permit(:name, :x, :y, :store_id, :category_id)
 end
