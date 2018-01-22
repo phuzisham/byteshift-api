@@ -4,13 +4,14 @@ class Store < ApplicationRecord
 	before_save :format_fields
 
 	validates_presence_of :name, :address, :phone, :hours
-	# validates :phone, length: { :minimum => 10, :maximum => 10, :message => 'Phone number must be 10 digits with no special characters.' }
+	validates :phone, format: { with: /^(?:\D*\d){10}\D*$/, multiline: true, message: "Phone number must contain exactly 10 digits [0-9]" }
 
 private
 	def format_fields
 		self.name = self.name.downcase.titleize
 
 		phone = Phoner::Phone.parse self.phone, :country_code => '1'
+
 		self.phone = phone.format(:us)
 
 		self.address = StreetAddress::US.parse(self.address)
