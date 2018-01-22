@@ -35,6 +35,8 @@ group :development, :test do
   gem 'shoulda-matchers', '~> 3.1'
   gem 'shoulda-callback-matchers', '~> 1.1.1'
   gem 'pry', '~> 0.11.3'
+  gem 'factory_bot', '~> 4.0'
+  gem 'rails-controller-testing'
 end
 
 group :development do
