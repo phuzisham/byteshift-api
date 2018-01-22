@@ -11,20 +11,12 @@ class API::ItemsController < ApplicationController
 
   def create
     @item = Item.new(item_params)
-		if @item.save
-			json_response(@item)
-		else
-			json_response(@item.errors, status = :not_acceptable)
-		end
+		@item.save ? json_response(@item) : json_response(@item.errors, status = :not_acceptable)
   end
 
   def show
     @item = Item.find(params[:id])
-    if @item
-			json_response(@item)
-		else
-			json_response(@item.errors, status = :not_found)
-		end
+    @item ? json_response(@item) : json_response(@item.errors, status = :not_found)
   end
 
 
