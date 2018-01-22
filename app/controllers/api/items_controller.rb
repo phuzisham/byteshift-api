@@ -19,6 +19,12 @@ class API::ItemsController < ApplicationController
     @item ? json_response(@item) : json_response(@item.errors, status = :not_found)
   end
 
+  def update
+    @item = Item.find(params[:id])
+    # Send a 200 response in lieu of the default 204 response to let the server know everything is solid
+    # Perhaps specify an error code that we can return in the case a store fails to update?
+    @item.update(item_params) ? (head :ok) : (head :expectation_failed)
+  end
 
   private
   def item_params
