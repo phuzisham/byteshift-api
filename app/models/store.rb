@@ -1,19 +1,20 @@
 class Store < ApplicationRecord
-	has_many :categories
-	has_many :items
-	before_save :format_fields
+  has_many :categories
+  has_many :items
+  before_save :format_fields
 
-	validates_presence_of :name, :address, :phone, :hours
-	validates :phone, format: { with: /^(?:\D*\d){10}\D*$/, multiline: true, message: "Phone number must contain exactly 10 digits [0-9]" }
+  validates_presence_of :name, :address, :phone, :hours
+  validates :phone, format: { with: /^(?:\D*\d){10}\D*$/, multiline: true, message: 'Phone number must contain exactly 10 digits [0-9]' }
 
-private
-	def format_fields
-		self.name = self.name.downcase.titleize
+  private
 
-		phone = Phoner::Phone.parse self.phone, :country_code => '1'
+  def format_fields
+    self.name = name.downcase.titleize
 
-		self.phone = phone.format(:us)
+    phone = Phoner::Phone.parse self.phone, country_code: '1'
 
-		self.address = StreetAddress::US.parse(self.address)
-	end
+    self.phone = phone.format(:us)
+
+    self.address = StreetAddress::US.parse(address)
+  end
 end

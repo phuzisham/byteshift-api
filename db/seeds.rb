@@ -12,27 +12,27 @@ Category.destroy_all
 20.times do
   Store.create!(name: Faker::StarWars.unique.planet,
                 address: Faker::Address.street_address + ', ' + Faker::Address.city + ', ' + Faker::Address.state_abbr + ', ' + Faker::Address.zip,
-	              phone: Faker::Number.number(10),
-	              hours: Faker::Number.between(8, 80))
+                phone: Faker::Number.number(10),
+                hours: Faker::Number.between(8, 80))
 end
 p "#{Store.count} stores created"
 
 20.times do
   Category.create!(name: Faker::BossaNova.unique.song,
-                	 lx: Faker::Number.between(8, 80),
-	              	 rx: Faker::Number.between(8, 80),
-	              	 ty: Faker::Number.between(8, 80),
-								 	 by: Faker::Number.between(8, 80),
-								 	 store_id: Store.find(rand(Store.first.id..Store.last.id)).id)
+                   lx: Faker::Number.between(8, 80),
+                   rx: Faker::Number.between(8, 80),
+                   ty: Faker::Number.between(8, 80),
+                   by: Faker::Number.between(8, 80),
+                   store_id: Store.find(rand(Store.first.id..Store.last.id)).id)
 end
 p "#{Category.count} categories created"
 
 20.times do
-	category = Category.find(rand(Category.first.id..Category.last.id))
+  category = Category.find(rand(Category.first.id..Category.last.id))
   Item.create!(name: Faker::BossaNova.unique.song,
-                	 x: Faker::Number.between(8, 80),
-	              	 y: Faker::Number.between(8, 80),
-								 	 category_id: category.id,
-								 	 store_id: category.store_id)
+               x: Faker::Number.between(8, 80),
+               y: Faker::Number.between(8, 80),
+               category_id: category.id,
+               store_id: category.store_id)
 end
 p "#{Item.count} items created"

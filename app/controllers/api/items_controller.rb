@@ -11,7 +11,7 @@ class API::ItemsController < ApplicationController
 
   def create
     @item = Item.new(item_params)
-		@item.save ? json_response(@item) : json_response(@item.errors, status = :not_acceptable)
+    @item.save ? json_response(@item) : json_response(@item.errors, status = :not_acceptable)
   end
 
   def show
@@ -34,6 +34,7 @@ class API::ItemsController < ApplicationController
   end
 
   private
+
   def item_params
     params.permit(:name, :x, :y, :store_id, :category_id)
   end
