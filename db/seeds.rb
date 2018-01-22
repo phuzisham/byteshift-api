@@ -11,7 +11,7 @@ Category.destroy_all
 
 20.times do
   Store.create!(name: Faker::StarWars.unique.planet,
-                address: Faker::Address.street_address,
+                address: Faker::Address.street_address + ', ' + Faker::Address.city + ', ' + Faker::Address.state_abbr + ', ' + Faker::Address.zip,
 	              phone: Faker::Number.number(10),
 	              hours: Faker::Number.between(8, 80))
 end
