@@ -21,13 +21,10 @@ class API::StoresController < ApplicationController
 	end
 
 	def update
+		# Send a 200 response in lieu of the default 204 response to let the server know everything is solid
+		# Perhaps specify an error code that we can return in the case a store fails to update?
     @store = Store.find(params[:id])
-    if @store.update(store_params)
-			# Send a 200 response in lieu of the default 204 response to let the server know everything is solid
-			head :ok
-		else
-			# Perhaps specify an error code that we can return in the case a store fails to update?
-		end
+    @store.update(store_params) ? (head :no_content) : (head :expectation_failed)
   end
 
 	def destroy

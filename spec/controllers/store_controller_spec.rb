@@ -15,4 +15,13 @@ RSpec.describe API::StoresController, type: :controller do
       expect(response).to have_http_status(:ok)
     end
   end
+
+  describe 'PUT store' do
+    it 'updates a store record' do
+      store = FactoryBot.create(:store)
+      put(:update, params: { id: store.id, name: "something" })
+      expect(response)
+      binding.pry
+    end
+  end
 end
