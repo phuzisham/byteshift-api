@@ -4,7 +4,7 @@ class Store < ApplicationRecord
 	before_save :format_fields
 
 	validates_presence_of :name, :address, :phone, :hours
-	validates :phone, length: { :minimum => 10, :maximum => 10, :message => 'Phone number must be 10 digits with no special characters.' }
+	# validates :phone, length: { :minimum => 10, :maximum => 10, :message => 'Phone number must be 10 digits with no special characters.' }
 
 private
 	def format_fields

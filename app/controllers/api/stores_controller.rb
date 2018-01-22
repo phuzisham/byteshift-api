@@ -24,7 +24,8 @@ class API::StoresController < ApplicationController
 		# Send a 200 response in lieu of the default 204 response to let the server know everything is solid
 		# Perhaps specify an error code that we can return in the case a store fails to update?
     @store = Store.find(params[:id])
-    @store.update(store_params) ? (head :no_content) : (head :expectation_failed)
+		binding.pry
+    @store.update!(store_params)
   end
 
 	def destroy
@@ -39,6 +40,6 @@ class API::StoresController < ApplicationController
 
 	private
 	def store_params
-		params.permit(:name, :address, :phone, :hours)
+		params.permit(:name, :address, :phone, :hours, :id)
 	end
 end
