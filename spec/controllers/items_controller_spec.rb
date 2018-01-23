@@ -28,4 +28,17 @@ RSpec.describe API::ItemsController, type: :controller do
       expect(JSON(response.body)).not_to be_empty
     end
   end
+
+  describe 'GET Items' do
+    it 'has a 200 OK response' do
+      get :show, params: { store_id: @item.store.id, id: @item.id }
+      expect(response).to have_http_status(:ok)
+    end
+
+    it 'returns a non-empty list' do
+      get :show, params: { store_id: @item.store.id, id: @item.id }
+      # By parsing the response body I get a hash that represents the @item
+      expect(JSON(response.body)['id']).to eq(@item.id)
+    end
+  end
 end
