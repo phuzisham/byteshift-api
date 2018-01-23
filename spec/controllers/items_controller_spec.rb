@@ -19,7 +19,6 @@ end
 RSpec.describe API::ItemsController, type: :controller do
   describe 'GET Items' do
     it 'has a 200 OK response' do
-      binding.pry
       get :index, params: { store_id: @item.store.id }
       expect(response).to have_http_status(:ok)
     end
