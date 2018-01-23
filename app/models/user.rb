@@ -1,11 +1,11 @@
 class User < ActiveRecord::Base
-  include DeviseTokenAuth::Concerns::User
-  has_one :account
-
   # Include default devise modules.
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
   # :confirmable, :omniauthable
+
+  include DeviseTokenAuth::Concerns::User
+  has_one :account
 
   # Devise seems to do a lot/most of the validations for us....
   # Known built in validations:
@@ -14,8 +14,6 @@ class User < ActiveRecord::Base
   # * email likeness validation (@blahblah.com)
   # * email uniqueness
 
-  validates :username, presence: true
-  validates :username, uniqueness: true, if: -> { username.present? }
   # validate :password_complexity
 
   # Needs to have a lowercase, uppercase, and be at least 8 characters long
