@@ -1,11 +1,15 @@
 require 'rails_helper'
 
 RSpec.configure do |config|
-  config.before(:all) do
+  config.before(:each) do
     # As it turns out, since I called the store and category FactoryBot definition from the Item definition these aren't necessary
     # @store = FactoryBot.create(:store)
     # @category = FactoryBot.create(:category)
     @item = FactoryBot.create(:item)
+  end
+
+  config.after(:each) do
+    Item.destroy(@item.id)
   end
 
   config.after(:all) do
@@ -79,12 +83,37 @@ RSpec.describe API::ItemsController, type: :controller do
         patch :update, params: { name: 'Squeaky Cheese', store_id: @item.store_id, id: @item.id }
         expect(response).to have_http_status(:ok)
       end
+
+      it 'actually makes changes to an item' do
+        patch :update, params: { name: 'Cheesesticks', store_id: @item.store_id, id: @item.id }
+        new_item_name = Item.find(@item.id).name
+        expect(new_item_name).to eq('Cheesesticks')
+      end
     end
 
     context 'An item without proper params is sent to the update route' do
       it 'returns a 417 Expectation Failed response' do
         patch :update, params: { name: '', store_id: @item.store_id, id: @item.id }
         expect(response).to have_http_status(:expectation_failed)
+      end
+    end
+  end
+
+  describe 'DELETE Items' do
+    # Is here to ensure we don't effect the default item
+    before(:each) do
+      @sample_item = FactoryBot.create(:item)
+    end
+
+    context 'An item with proper params is sent to the delete route' do
+      it 'returns a 200 OK response' do
+        delete :destroy, params: { store_id: @sample_item.store_id, id: @sample_item.id }
+        expect(response).to have_http_status(:ok)
+      end
+
+      it 'can no longer find the item' do
+        delete :destroy, params: { store_id: @sample_item.store_id, id: @sample_item.id }
+        expect(Item.last).not_to eq(@sample_item)
       end
     end
   end
