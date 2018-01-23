@@ -83,7 +83,6 @@ ActiveRecord::Schema.define(version: 20180123025511) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string "unconfirmed_email"
-    t.string "username"
     t.boolean "admin", default: false
     t.string "email"
     t.json "tokens"
