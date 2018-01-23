@@ -15,7 +15,7 @@ describe Category, 'validations' do
 end
 
 describe Category, 'callbacks' do
-  sampleCategory = Category.create(:name => 'proDUCE', :lx => '0', :rx => '7', :ty => '8', :by => '0', :store_id => 1)
+  sampleCategory = Category.create(name: 'proDUCE', lx: '0', rx: '7', ty: '8', by: '0', store_id: 1)
 
   it { is_expected.to callback(:format_name).before(:save) }
 
