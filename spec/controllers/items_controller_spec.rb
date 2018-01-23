@@ -57,6 +57,12 @@ RSpec.describe API::ItemsController, type: :controller do
         post :create, params: { name: '2% Milk', x: 3, y: 4, category_id: cat.id, store_id: cat.store_id }
         expect(response).to have_http_status(:ok)
       end
+
+      it 'returns the newly created item' do
+        cat = Category.last
+        post :create, params: { name: '99% Milk', x: 3, y: 4, category_id: cat.id, store_id: cat.store_id }
+        expect(JSON(response.body)['name']).to eq('99% Milk')
+      end
     end
 
     context 'An item without proper params is sent to the server create route' do
