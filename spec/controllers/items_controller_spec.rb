@@ -51,7 +51,7 @@ RSpec.describe API::ItemsController, type: :controller do
   end
 
   describe 'POST Items' do
-    context 'An item with proper params is sent to the server create route' do
+    context 'An item with proper params is sent to the create route' do
       it 'returns a 200 OK response' do
         cat = Category.last
         post :create, params: { name: '2% Milk', x: 3, y: 4, category_id: cat.id, store_id: cat.store_id }
@@ -65,10 +65,26 @@ RSpec.describe API::ItemsController, type: :controller do
       end
     end
 
-    context 'An item without proper params is sent to the server create route' do
+    context 'An item without proper params is sent to the create route' do
       it 'has an index through a store that returns a 406 Not Acceptable response' do
         post :create, params: { name: '2% Milk', x: 3, y: 4, category_id: '', store_id: '' }
         expect(response).to have_http_status(:not_acceptable)
+      end
+    end
+  end
+
+  describe 'PATCH Items' do
+    context 'An item with proper params is sent to the update route' do
+      it 'returns a 200 OK response' do
+        patch :update, params: { name: 'Squeaky Cheese', store_id: @item.store_id, id: @item.id }
+        expect(response).to have_http_status(:ok)
+      end
+    end
+
+    context 'An item without proper params is sent to the update route' do
+      it 'returns a 417 Expectation Failed response' do
+        patch :update, params: { name: '', store_id: @item.store_id, id: @item.id }
+        expect(response).to have_http_status(:expectation_failed)
       end
     end
   end
