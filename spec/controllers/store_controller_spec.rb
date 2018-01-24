@@ -42,6 +42,11 @@ RSpec.describe API::StoresController, type: :controller do
       expect(response).to have_http_status(:ok)
     end
 
+    it 'saves store to database' do
+      post(:create, params: { name: 'Freddy Macs', address: '1342 s waterfront, portland, or 97201', phone: '5035552244', hours: 'all week long' })
+      expect(Store.last.name).to eq('Freddy Macs')
+    end
+
     it 'renders error :not_acceptable' do
       post(:create, params: { })
       expect(response).to have_http_status(:not_acceptable)
