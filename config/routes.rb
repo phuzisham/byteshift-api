@@ -11,7 +11,10 @@ Rails.application.routes.draw do
                                 skip: %i[sessions]
 
     resources :accounts, except: %i[index create destroy] do
-      resources :lists, except: [:update]
+      resources :lists, except: [:update] do
+        # TODO: override url path from list_items to show as items
+        resources :list_items, except: %i[update show]
+      end
     end
 
     resources :stores do
