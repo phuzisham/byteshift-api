@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :item do
-    name('Cheese')
+    name('cheese')
     x(2)
     y(4)
     # implicitly calls the factory :store

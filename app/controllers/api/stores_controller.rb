@@ -3,38 +3,31 @@ class API::StoresController < ApplicationController
 
   def index
     @stores = Store.all
-    json_response(@stores)
+    @stores.length > 0 ? json_response(@stores) : (head :not_found)
   end
 
   def show
     @store = Store.find(params[:id])
-    json_response(@store)
+    @store ? json_response(@store) : json_response(@store.errors, status = :not_found)
   end
 
   def create
     @store = Store.new(store_params)
-    if @store.save
-      json_response(@store)
-    else
-      json_response(@store.errors, status = :not_acceptable)
-    end
+    @store.save ? json_response(@store) : json_response(@store.errors, status = :not_acceptable)
   end
 
   def update
     # Send a 200 response in lieu of the default 204 response to let the server know everything is solid
     # Perhaps specify an error code that we can return in the case a store fails to update?
+    # Return head :no_content because nothing is being transmitted
     @store = Store.find(params[:id])
-    head :no_content if @store.update!(store_params)
+    @store.update(store_params) ? (head :no_content) : (head :expectation_failed)
   end
 
   def destroy
+    # Return head :no_content because nothing is being transmitted
     @store = Store.find(params[:id])
-    if @store.destroy
-      # Send a 200 response
-      head :no_content
-    else
-      # On the off chance it fails?
-    end
+    @store.destroy ? (head :no_content) : (head :expectation_failed)
   end
 
   private
