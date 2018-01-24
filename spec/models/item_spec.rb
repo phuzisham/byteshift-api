@@ -14,11 +14,11 @@ describe Item, 'validations' do
 end
 
 describe Item, 'callbacks' do
-  sampleItem = Item.create(:name => 'aPPle', :x => '3', :y => '7', :store_id => 1, :category_id => 1)
+  sampleItem = FactoryBot.create(:item)
 
   it { is_expected.to callback(:format_name).before(:save) }
 
   it 'will titleize name' do
-    expect(sampleItem.name).to(eq('Apple'))
+    expect(sampleItem.name).to(eq('Cheese'))
   end
 end
