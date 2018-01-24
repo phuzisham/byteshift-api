@@ -19,6 +19,11 @@ class API::ListItemsController < ApplicationController
     @list_item.save ? json_response(@list_item) : json_response(@list_item.errors, status = :not_acceptable)
   end
 
+  def destroy
+    @list_item = ListItem.find(params[:id])
+    @list_item.destroy ? (head :ok) : (head :expectation_failed)
+  end
+
   private
 
   def list_items_params
