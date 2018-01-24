@@ -13,4 +13,15 @@ class API::ListsController < ApplicationController
     @list = List.find(params[:id])
     json_response(@list)
   end
+
+  def create
+    @list.new(list_params)
+    @list.save ? json_response(@list) : json_response(@list.errors, status = :not_acceptable)
+  end
+
+  private
+
+  def list_params
+    params.permit(:account_id, :store_id)
+  end
 end
