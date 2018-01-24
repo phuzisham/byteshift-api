@@ -11,7 +11,7 @@ Rails.application.routes.draw do
                                 skip: %i[sessions]
 
     resources :accounts, except: %i[index create destroy] do
-      resources :lists
+      resources :lists, except: [:update]
     end
 
     resources :stores do

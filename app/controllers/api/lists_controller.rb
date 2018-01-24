@@ -19,6 +19,11 @@ class API::ListsController < ApplicationController
     @list.save ? json_response(@list) : json_response(@list.errors, status = :not_acceptable)
   end
 
+  # Lists wont change stores or accounts
+  # def update
+  #
+  # end
+
   private
 
   def list_params
