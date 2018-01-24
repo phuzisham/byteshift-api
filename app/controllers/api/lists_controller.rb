@@ -15,7 +15,7 @@ class API::ListsController < ApplicationController
   end
 
   def create
-    @list.new(list_params)
+    @list = List.new(list_params)
     @list.save ? json_response(@list) : json_response(@list.errors, status = :not_acceptable)
   end
 
@@ -23,6 +23,11 @@ class API::ListsController < ApplicationController
   # def update
   #
   # end
+
+  def destroy
+    @list = List.find(params[:id])
+    @list.destroy ? (head :ok) : (head :expectation_failed)
+  end
 
   private
 
