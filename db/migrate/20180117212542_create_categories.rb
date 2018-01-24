@@ -6,6 +6,7 @@ class CreateCategories < ActiveRecord::Migration[5.1]
       t.integer :rx
       t.integer :ty
       t.integer :by
+      t.integer :store_id
       
       t.timestamps
     end
