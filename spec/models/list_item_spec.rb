@@ -1,5 +1,10 @@
 require 'rails_helper'
 
-RSpec.describe ListItem, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+describe ListItem, 'relations' do
+  it { should belong_to :list }
+  it { should belong_to :item }
+end
+
+describe ListItem, 'validations' do
+  it { should validate_presence_of :name }
 end
