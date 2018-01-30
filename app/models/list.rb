@@ -6,8 +6,8 @@ class List < ApplicationRecord
   validates :account_id, presence: true, numericality: { only_integer: true }
   validates :store_id, presence: true, numericality: { only_integer: true }
 
-  validate_account_id :account_id
-  validate_store_id :store_id
+  validate :validate_account_id,
+           :validate_store_id
 
   private
 

@@ -1,14 +1,14 @@
 class ListItem < ApplicationRecord
   belongs_to :list
-  has_one :item
+  belongs_to :item
 
   validates_presence_of :name
 
   validates :list_id, presence: true, numericality: { only_integer: true }
   validates :item_id, presence: true, numericality: { only_integer: true }
 
-  validate_list_id :list_id
-  validate_item_id :item_id
+  validate :validate_list_id,
+           :validate_item_id
 
   private
 
