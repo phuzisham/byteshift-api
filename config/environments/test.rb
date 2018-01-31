@@ -39,4 +39,7 @@ Rails.application.configure do
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
+
+  # Ignores Unpermitted Parameters
+  config.action_controller.action_on_unpermitted_parameters = false
 end
